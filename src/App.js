@@ -1,23 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
+import Modal from 'react-modal';
+import ModalContent from './components/ModalContent';
+// import Modal from './components/Modal';
 
 function App() {
+
+  const [isOpen, setIsOpen] = useState(false);
+  
+  function toggleModal() {
+    setIsOpen(!isOpen);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={toggleModal}>Open modal</button>
+      <Modal
+          isOpen={isOpen}
+          onRequestClose={toggleModal}
+          shouldCloseOnOverlayClick={true}
+          contentLabel="My dialog"
+          content="content"
+          className="mymodal"
+          overlayClassName="myoverlay"
+          closeTimeoutMS={500}
+          >
+      <ModalContent body='Modal body goes here' title='Modal Title' onClose={toggleModal} />
+      </Modal>
     </div>
   );
 }
